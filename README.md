@@ -1,8 +1,7 @@
-# Nginx Compoents for My Docker Images
+# Nginx Assist for My Docker Images
 
 ## Installation
-
-    git clone https://github.com/ywfwj2008/docker-components.git
+    git clone https://github.com/ywfwj2008/nginx-assist.git
 
 ## usage
 ### run wish mysql
@@ -35,10 +34,10 @@ docker run --name web \
 ### nginx control
 start|stop|status|restart|reload|configtest
 ```
-docker exec -d web service nginx restart
+docker exec -d web service nginx reload
 ```
 ### php control
 start|stop|restart|reload|status
 ```
-docker exec -d web service php-fpm restart
+docker exec -d web service php-fpm reload
 ```
