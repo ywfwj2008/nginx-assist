@@ -33,13 +33,16 @@ CQUESTION="$CMAGENTA"
 CWARNING="$CYELLOW"
 CMSG="$CCYAN"
 
-# check Web server
+# Run Web server Image
 while :; do echo
   read -p "Do you want to run a web image? [y/n]: " Web_yn
   if [[ ! $Web_yn =~ ^[y,n]$ ]]; then
     echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
   else
-    if [ "$Web_yn" == 'y' ]; then
+    if [ "$Web_yn" == 'y' ]; then echo
+      # container name
+      read -p "Please input container name:(Default no name press Enter) " Container_name
+      [ -n "$Container_name" ] && Container_name="--name ${Container_name}"
       # web type
       while :; do echo
         echo 'Please select web type:'
@@ -118,7 +121,7 @@ while :; do echo
 
       # run docker image
       echo
-      docker run --name web \
+      docker run ${Container_name} \
            ${CUSTOM_LINK} \
            -v /home/conf/vhost:/usr/local/nginx/conf/vhost \
            -v /home/conf/rewrite:/usr/local/nginx/conf/rewrite \
