@@ -111,7 +111,7 @@ while :; do echo
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
       else
         if [ "$LinkMy_yn" == 'y' ]; then echo
-          read -p "Please input link name: (looks like mysql:localmysql)" Link_name
+          read -p "Please input link name:(looks like mysql:localmysql) " Link_name
           [ -n ${Link_name} ] &&  CUSTOM_LINK="--link ${Link_name}"
         fi
       fi

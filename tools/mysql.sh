@@ -76,6 +76,7 @@ while :; do echo
       [ -n "$MYSQL_ROOT_PASSWORD" ] && MY_SECRET_PW="-e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
 
       # run docker image
+      echo
       docker run --name mysql \
            -v /home/mysql:/var/lib/mysql \
            ${MY_SECRET_PW} \
