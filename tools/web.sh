@@ -119,6 +119,20 @@ while :; do echo
         fi
       fi
 
+      # set ports
+      echo
+      read -p "Do you want to set ports? [y/n]: " Ports_yn
+      if [[ ! $Ports_yn =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+      else
+        if [ "$Ports_yn" == 'y' ]; then echo
+          read -p "Please input http port:(Default 80 press Enter) " Port_http
+          [ -z "$Port_http" ] && Port_http=80
+          read -p "Please input https port:(Default 443 press Enter) " Port_https
+          [ -z "$Port_https" ] && Port_https=443
+        fi
+      fi
+
       # run docker image
       echo
       docker run ${Container_name} \
@@ -127,9 +141,8 @@ while :; do echo
            -v /home/conf/rewrite:/usr/local/nginx/conf/rewrite \
            -v /home/wwwlogs:/home/wwwlogs \
            -v /home/wwwroot:/home/wwwroot \
-           -p 80:80 -p 443:443 \
+           -p ${Port_http}:80 -p ${Port_https}:443 \
            -d ywfwj2008/php-${WEB_TYPE}:${PHP_VERSION}
-
     fi
     break
   fi
