@@ -76,7 +76,8 @@ while :; do echo
       [ -n "$MYSQL_ROOT_PASSWORD" ] && MY_SECRET_PW="-e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
 
       # container name
-      read -p "Please input container name:(Default no name press Enter) " Container_name
+      echo
+      read -p "Please input a container name:(Default no name press Enter) " Container_name
       [ -n "$Container_name" ] && Container_name="--name ${Container_name}"
 
       # run docker image

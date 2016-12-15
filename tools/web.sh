@@ -39,7 +39,7 @@ while :; do echo
   if [[ ! $Web_yn =~ ^[y,n]$ ]]; then
     echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
   else
-    if [ "$Web_yn" == 'y' ]; then echo
+    if [ "$Web_yn" == 'y' ]; then
       # web type
       while :; do echo
         echo 'Please select web type:'
@@ -105,7 +105,8 @@ while :; do echo
       esac
 
       # container name
-      read -p "Please input container name:(Default no name press Enter) " Container_name
+      echo
+      read -p "Please input a container name:(Default no name press Enter) " Container_name
       [ -n "$Container_name" ] && Container_name="--name ${Container_name}"
 
       # link mysql
