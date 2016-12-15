@@ -71,9 +71,13 @@ while :; do echo
       esac
 
       # input password
-      echo
-      read -p "Please input a password:(Default no need password press Enter) " MYSQL_ROOT_PASSWORD
-      [ -n "$MYSQL_ROOT_PASSWORD" ] && MY_SECRET_PW="-e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+      while :; do echo
+        read -p "Please input a password: " MYSQL_ROOT_PASSWORD
+        if [ -n "$MYSQL_ROOT_PASSWORD" ]; then
+          MY_SECRET_PW="-e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+          break
+        fi
+      done
 
       # container name
       echo
