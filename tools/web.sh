@@ -106,8 +106,8 @@ while :; do echo
 
       # container name
       echo
-      read -p "Please input a container name:(Default no name press Enter) " Container_name
-      [ -n "$Container_name" ] && Container_name="--name ${Container_name}"
+      read -p "Please input container name:(Default \"web\" press Enter) " Container_name
+      [ -z "$Choose_number" ] && Choose_number=web
 
       # link mysql
       echo
