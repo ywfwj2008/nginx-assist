@@ -80,10 +80,16 @@ while :; do echo
       done
 
       # container name
-      echo
-      read -p "Please input container name:(Default \"mysql\" press Enter) " Container_name
-      [ -z "$Container_name" ] && Container_name=mysql
-      #docker ps -a | grep "\<$Container_name\>$"
+      while :; do echo
+        read -p "Please input container name:(Default \"mysql\" press Enter) " Container_name
+        [ -z "$Container_name" ] && Container_name=mysql
+        Container_grep=`docker ps -a | grep "\<$Container_name\>$"`
+        if [ -n "$Container_grep" ]; then
+          echo $Container_grep
+        else
+          break
+        fi
+      done
 
       # run docker image
       echo
