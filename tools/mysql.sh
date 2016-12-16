@@ -83,6 +83,7 @@ while :; do echo
       echo
       read -p "Please input container name:(Default \"mysql\" press Enter) " Container_name
       [ -z "$Container_name" ] && Container_name=mysql
+      #docker ps -a | grep "\<$Container_name\>$"
 
       # run docker image
       echo

@@ -108,6 +108,7 @@ while :; do echo
       echo
       read -p "Please input container name:(Default \"web\" press Enter) " Container_name
       [ -z "$Container_name" ] && Container_name=web
+      #docker ps -a | grep "\<$Container_name\>$"
 
       # link mysql
       echo
