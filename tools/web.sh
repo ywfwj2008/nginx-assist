@@ -105,10 +105,16 @@ while :; do echo
       esac
 
       # container name
-      echo
-      read -p "Please input container name:(Default \"web\" press Enter) " Container_name
-      [ -z "$Container_name" ] && Container_name=web
-      #docker ps -a | grep "\<$Container_name\>$"
+      while :; do echo
+        read -p "Please input container name:(Default \"web\" press Enter) " Container_name
+        [ -z "$Container_name" ] && Container_name=web
+        Container_grep=`docker ps -a | grep "\<$Container_name\>$"`
+        if [ -n "$Container_grep" ]; then
+          echo "${CWARNING}input error! The container's name 'web' already exists.${CEND}"
+        else
+          break
+        fi
+      done
 
       # link mysql
       echo
