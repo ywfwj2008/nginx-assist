@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # aliyun debian 8
 apt-get update
 apt-get install -y apt-transport-https curl vim
