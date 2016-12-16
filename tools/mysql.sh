@@ -82,7 +82,7 @@ while :; do echo
       # container name
       echo
       read -p "Please input container name:(Default \"mysql\" press Enter) " Container_name
-      [ -z "$Choose_number" ] && Choose_number=web
+      [ -z "$Choose_number" ] && Choose_number=mysql
 
       # run docker image
       echo
