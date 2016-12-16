@@ -130,6 +130,7 @@ while :; do echo
         if [ "$Ports_yn" == 'y' ]; then echo
           read -p "Please input http port:(Default 80 press Enter) " Port_http
           [ -z "$Port_http" ] && Port_http=80
+          echo
           read -p "Please input https port:(Default 443 press Enter) " Port_https
           [ -z "$Port_https" ] && Port_https=443
         fi
@@ -137,7 +138,7 @@ while :; do echo
 
       # run docker image
       echo
-      docker run ${Container_name} \
+      docker run --name ${Container_name} \
            ${CUSTOM_LINK} \
            -v /home/conf/vhost:/usr/local/nginx/conf/vhost \
            -v /home/conf/rewrite:/usr/local/nginx/conf/rewrite \
