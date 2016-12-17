@@ -85,7 +85,7 @@ while :; do echo
         [ -z "$Container_name" ] && Container_name=mysql
         Container_grep=`docker ps -a | grep "\<$Container_name\>$"`
         if [ -n "$Container_grep" ]; then
-          echo "${CWARNING}input error! The container's name 'mysql' already exists.${CEND}"
+          echo "${CWARNING}input error! The container's name '$Container_name' already exists.${CEND}"
         else
           break
         fi
