@@ -401,7 +401,7 @@ server {
   server_name ${domain}${moredomainame};
   ${N_log}
   index index.html index.htm index.php;
-  include ./rewrite/${rewrite}.conf;
+  include rewrite/${rewrite}.conf;
   root ${vhostdir};
   #error_page 404 = /404.html;
   #error_page 502 = /502.html;
