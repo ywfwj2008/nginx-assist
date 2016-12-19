@@ -1,21 +1,6 @@
 #!/bin/bash
-# Author:  yeho <lj2007331 AT gmail.com>
-# BLOG:  https://blog.linuxeye.com
-#
-# Notes: OneinStack for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+
-#
-# Project home page:
-#       https://oneinstack.com
-#       https://github.com/lj2007331/oneinstack
 
-export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-clear
-printf "
-#######################################################################
-#       OneinStack for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+      #
-#       For more information please visit https://oneinstack.com      #
-#######################################################################
-"
+. ./common.sh
 
 # options
 run_user=1000
@@ -23,41 +8,6 @@ python_install_dir=/usr/local/python
 webconfig_dir=/home/conf
 wwwroot_dir=/home/wwwroot
 wwwlogs_dir=/home/wwwlogs
-
-# color
-echo=echo
-for cmd in echo /bin/echo; do
-  $cmd >/dev/null 2>&1 || continue
-  if ! $cmd -e "" | grep -qE '^-e'; then
-    echo=$cmd
-    break
-  fi
-done
-CSI=$($echo -e "\033[")
-CEND="${CSI}0m"
-CDGREEN="${CSI}32m"
-CRED="${CSI}1;31m"
-CGREEN="${CSI}1;32m"
-CYELLOW="${CSI}1;33m"
-CBLUE="${CSI}1;34m"
-CMAGENTA="${CSI}1;35m"
-CCYAN="${CSI}1;36m"
-CSUCCESS="$CDGREEN"
-CFAILURE="$CRED"
-CQUESTION="$CMAGENTA"
-CWARNING="$CYELLOW"
-CMSG="$CCYAN"
-
-# get char
-get_char() {
-    SAVEDSTTY=`stty -g`
-    stty -echo
-    stty cbreak
-    dd if=/dev/tty bs=1 count=1 2> /dev/null
-    stty -raw
-    stty echo
-    stty $SAVEDSTTY
-}
 
 # Check if user is root
 [ $(id -u) != '0' ] && { echo "${CFAILURE}Error: You must be root to run this script${CEND}"; exit 1; }
