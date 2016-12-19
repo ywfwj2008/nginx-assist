@@ -116,8 +116,8 @@ while :; do echo
       echo
       docker run --name ${Container_name} \
            ${CUSTOM_LINK} \
-           -v /home/conf/vhost:/usr/local/nginx/conf/vhost \
-           -v /home/conf/rewrite:/usr/local/nginx/conf/rewrite \
+           -v /home/conf/vhost:/usr/local/${WEB_TYPE}/conf/vhost \
+           -v /home/conf/rewrite:/usr/local/${WEB_TYPE}/conf/rewrite \
            -v /home/wwwlogs:/home/wwwlogs \
            -v /home/wwwroot:/home/wwwroot \
            -p ${Port_http}:80 -p ${Port_https}:443 \
