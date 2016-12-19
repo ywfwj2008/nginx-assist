@@ -5,7 +5,7 @@ clear
 printf "
 #######################################################################
 #       OneinStack for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+      #
-#       For more information please visit https://oneinstack.com      #
+#       For more information please visit https://www.baidu.com       #
 #######################################################################
 "
 
