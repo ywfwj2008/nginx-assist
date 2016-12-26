@@ -646,6 +646,7 @@ Add_Vhost() {
 }
 
 Reload_NGX() {
+  echo
   read -p "Do you want to reload web service? [y/n]: " Reload_yn
   if [[ ! $Reload_yn =~ ^[y,n]$ ]]; then
     echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
