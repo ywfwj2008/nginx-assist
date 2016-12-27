@@ -88,8 +88,6 @@ If you enter '.', the field will be left blank.
   [ -z "${SELFSIGNEDSSL_O}U" ] && SELFSIGNEDSSL_OU="IT Dept."
 
   openssl req -new -newkey rsa:2048 -sha256 -nodes -out ${PATH_SSL}/${domain}.csr -keyout ${PATH_SSL}/${domain}.key -subj "/C=${SELFSIGNEDSSL_C}/ST=${SELFSIGNEDSSL_ST}/L=${SELFSIGNEDSSL_L}/O=${SELFSIGNEDSSL_O}/OU=${SELFSIGNEDSSL_OU}/CN=${domain}" > /dev/null 2>&1
-  /bin/cp ${PATH_SSL}/${domain}.csr{,_bk.$(date +%Y-%m-%d_%H%M)}
-  /bin/cp ${PATH_SSL}/${domain}.key{,_bk.$(date +%Y-%m-%d_%H%M)}
   openssl x509 -req -days 36500 -sha256 -in ${PATH_SSL}/${domain}.csr -signkey ${PATH_SSL}/${domain}.key -out ${PATH_SSL}/${domain}.crt > /dev/null 2>&1
 }
 
@@ -124,7 +122,7 @@ Create_SSL() {
       done
 
       [ "${moredomainame_yn}" == 'y' ] && moredomainame_D="$(for D in ${moredomainame}; do echo -d ${D}; done)"
-      if [ "${nginx_ssl_yn}" == 'y' ]; then 
+      if [ "${nginx_ssl_yn}" == 'y' ]; then
         [ ! -d ${webconfig_dir}/vhost ] && mkdir ${webconfig_dir}/vhost
         echo "server {  server_name ${domain}${moredomainame};  root ${vhostdir};  access_log off; }" > ${webconfig_dir}/vhost/${domain}.conf
         /etc/init.d/nginx reload > /dev/null
@@ -291,7 +289,7 @@ Input_Add_domain() {
           break
         fi
       done
-      [ "${redirect_yn}" == 'y' ] && Nginx_redirect=$(echo -e "if (\$host != $domain) {\n    rewrite ^/(.*)\$ \$scheme://$domain/\$1 permanent;\n  }")
+      [ "${redirect_yn}" == 'y' ] && Nginx_redirect="if (\$host != $domain) {  return 301 \$scheme://${domain}\$request_uri;  }"
     fi
   fi
 
@@ -341,7 +339,7 @@ Nginx_anti_hotlinking() {
     else
       domain_allow_all=${domain_allow}
     fi
-    anti_hotlinking=$(echo -e "location ~ .*\.(wma|wmv|asf|mp3|mmf|zip|rar|jpg|gif|png|swf|flv|mp4)$ {\n  valid_referers none blocked ${domain_allow_all};\n  if (\$invalid_referer) {\n      #rewrite ^/ http://www.example.com/403.html;\n      return 403;\n    }\n  }")
+    anti_hotlinking=$(echo -e "location ~ .*\.(wma|wmv|asf|mp3|mmf|zip|rar|jpg|gif|png|swf|flv|mp4)$ {\n    valid_referers none blocked ${domain_allow_all};\n    if (\$invalid_referer) {\n        #rewrite ^/ http://www.example.com/403.html;\n        return 403;\n    }\n  }")
   else
     anti_hotlinking=
   fi
@@ -403,9 +401,9 @@ server {
   index index.html index.htm index.php;
   include rewrite/${rewrite}.conf;
   root ${vhostdir};
+  ${Nginx_redirect}
   #error_page 404 = /404.html;
   #error_page 502 = /502.html;
-  ${Nginx_redirect}
   ${anti_hotlinking}
   ${NGX_CONF}
   location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|mp4|ico)$ {
@@ -422,7 +420,7 @@ server {
 }
 EOF
 
-  [ "${https_yn}" == 'y' ] && sed -i "s@^  root.*;@&\n  if (\$ssl_protocol = \"\") { return 301 https://\$host\$request_uri; }@" ${webconfig_dir}/vhost/${domain}.conf
+  [ "${https_yn}" == 'y' ] && sed -i "s@^  root.*;@&\n  if (\$ssl_protocol = \"\") { return 301 https://\$server_name\$request_uri; }@" ${webconfig_dir}/vhost/${domain}.conf
 
   printf "
 #######################################################################
@@ -558,7 +556,7 @@ server {
 }
 EOF
 
-  [ "${https_yn}" == 'y' ] && sed -i "s@^root.*;@&\nif (\$ssl_protocol = \"\") { return 301 https://\$host\$request_uri; }@" ${webconfig_dir}/vhost/${domain}.conf
+  [ "${https_yn}" == 'y' ] && sed -i "s@^  root.*;@&\n  if (\$ssl_protocol = \"\") { return 301 https://\$server_name\$request_uri; }@" ${webconfig_dir}/vhost/${domain}.conf
 
   echo
   ${web_install_dir}/sbin/nginx -t
@@ -690,7 +688,9 @@ Del_NGX_Vhost() {
                 char=$(get_char)
                 rm -rf ${Directory}
               fi
+              echo
               echo "${CSUCCESS}Domain: ${domain} has been deleted.${CEND}"
+              echo
             else
               echo "${CWARNING}Virtualhost: ${domain} was not exist! ${CEND}"
             fi
