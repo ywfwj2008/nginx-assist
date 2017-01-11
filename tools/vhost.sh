@@ -623,8 +623,8 @@ Add_Vhost() {
     Nginx_anti_hotlinking
     Nginx_rewrite
     Nginx_log
-    Create_nginx_php-fpm_hhvm_conf
     Reload_NGX
+    Create_nginx_php-fpm_hhvm_conf
   elif [ ${Host_type} == 2 ]; then
     Choose_env
     Input_Add_domain
@@ -652,7 +652,7 @@ Reload_NGX() {
     if [ "$Reload_yn" == 'y' ]; then
       echo
       read -p "Please input container name? " Container_name
-      [ -n $Container_name ] && docker exec -d $Container_name service nginx reload
+      [ -n "${Container_name}" ] && docker exec -d $Container_name service nginx reload
     else
       break
     fi
