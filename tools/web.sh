@@ -5,7 +5,7 @@
 # Run Web server Image
 while :; do echo
   read -p "Do you want to run a web image? [y/n]: " Web_yn
-  if [[ ! $Web_yn =~ ^[y,n]$ ]]; then
+  if [[ ! "$Web_yn" =~ ^[y,n]$ ]]; then
     echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
   else
     if [ "$Web_yn" == 'y' ]; then
@@ -16,9 +16,9 @@ while :; do echo
         echo -e "\t${CMSG}2${CEND}. Tengine"
         echo -e "\t${CMSG}3${CEND}. OpenResty"
         echo -e "\t${CMSG}4${CEND}. Do not run"
-        read -p "Please input a number:(Default 2 press Enter) " Choose_number
-        [ -z "$Choose_number" ] && Choose_number=2
-        if [[ ! $Choose_number =~ ^[1-4]$ ]]; then
+        read -p "Please input a number:(Default 1 press Enter) " Choose_number
+        [ -z "$Choose_number" ] && Choose_number=1
+        if [[ ! "$Choose_number" =~ ^[1-4]$ ]]; then
           echo "${CWARNING}input error! Please only input number 1,2,3,4${CEND}"
         else
           break
@@ -49,7 +49,7 @@ while :; do echo
         echo -e "\t${CMSG}5${CEND}. PHP 7.1"
         read -p "Please input a number:(Default 2 press Enter) " Choose_number
         [ -z "$Choose_number" ] && Choose_number=2
-        if [[ ! $Choose_number =~ ^[1-6]$ ]]; then
+        if [[ ! "$Choose_number" =~ ^[1-6]$ ]]; then
           echo "${CWARNING}input error! Please only input number 1,2,3,4,5${CEND}"
         else
           break
@@ -88,7 +88,7 @@ while :; do echo
       # link mysql
       echo
       read -p "Do you want to link a mysql image? [y/n]: " LinkMy_yn
-      if [[ ! $LinkMy_yn =~ ^[y,n]$ ]]; then
+      if [[ ! "$LinkMy_yn" =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
       else
         if [ "$LinkMy_yn" == 'y' ]; then echo
@@ -100,7 +100,7 @@ while :; do echo
       # set ports
       echo
       read -p "Do you want to set ports? [y/n]: " Ports_yn
-      if [[ ! $Ports_yn =~ ^[y,n]$ ]]; then
+      if [[ ! "$Ports_yn" =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
       else
         if [ "$Ports_yn" == 'y' ]; then echo
