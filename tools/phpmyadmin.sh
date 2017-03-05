@@ -39,6 +39,7 @@ while :; do echo
 
       wget https://files.phpmyadmin.net/phpMyAdmin/${PHPMYADMIN_VERSION}/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages.tar.gz
       tar -zxf phpMyAdmin-$PHPMYADMIN_VERSION-all-languages.tar.gz
+      unlink -zxf phpMyAdmin-$PHPMYADMIN_VERSION-all-languages.tar.gz
       rm -rf /home/wwwroot/default/pma
       mv -f phpMyAdmin-$PHPMYADMIN_VERSION-all-languages /home/wwwroot/default/pma
 
