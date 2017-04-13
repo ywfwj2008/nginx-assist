@@ -14,8 +14,8 @@ while :; do echo
         echo -e "\t${CMSG}2${CEND}. phpMyAdmin 4.6"
         echo -e "\t${CMSG}3${CEND}. phpMyAdmin 4.7"
         echo -e "\t${CMSG}4${CEND}. Do not run"
-        read -p "Please input a number:(Default 2 press Enter) " Choose_number
-        [ -z "$Choose_number" ] && Choose_number=2
+        read -p "Please input a number:(Default 3 press Enter) " Choose_number
+        [ -z "$Choose_number" ] && Choose_number=3
         if [[ ! $Choose_number =~ ^[1-4]$ ]]; then
           echo "${CWARNING}input error! Please only input number 1,2,3,4${CEND}"
         else
