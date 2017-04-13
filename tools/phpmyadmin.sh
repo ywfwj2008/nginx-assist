@@ -30,7 +30,7 @@ while :; do echo
           PHPMYADMIN_VERSION=4.6.6
           ;;
         3)
-          PHPMYADMIN_VERSION=4.7.0-beta1
+          PHPMYADMIN_VERSION=4.7.0
           ;;
         4)
           break
